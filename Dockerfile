@@ -21,8 +21,8 @@ RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 RUN pip install --no-cache-dir requests webdavclient3
 
-COPY sync_data.sh /opt/halo/
-RUN chmod +x /opt/halo/sync_data.sh
+COPY cfgo sync_data.sh /opt/halo/
+RUN chmod +x /opt/halo/sync_data.sh /opt/halo/cfgo
 
 EXPOSE 8090
 
