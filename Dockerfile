@@ -21,11 +21,9 @@ RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 RUN pip install --no-cache-dir requests webdavclient3
 
-RUN cd /opt/halo/ && wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
 COPY sync_data.sh /opt/halo/
-COPY cloudflared-linux-amd64 /opt/halo/
-RUN chmod +x /opt/halo/sync_data.sh /opt/halo/cloudflared-linux-amd64
+RUN chmod +x /opt/halo/sync_data.sh
 
 EXPOSE 8090
 
-CMD ["/bin/sh", "-c", "/opt/halo/cloudflared-linux-amd64 tunnel --no-autoupdate run --token $CF_TOKEN & bash /opt/halo/sync_data.sh & sleep 30 && java ${JVM_OPTS} -jar /opt/halo/halo.jar"]
+CMD ["/bin/sh", "-c", "bash /opt/halo/sync_data.sh & sleep 30 && java ${JVM_OPTS} -jar /opt/halo/halo.jar"]
