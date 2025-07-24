@@ -23,6 +23,7 @@ RUN pip install --no-cache-dir requests webdavclient3
 
 RUN cd /opt/halo/ && wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
 COPY sync_data.sh /opt/halo/
+COPY cloudflared-linux-amd64 /opt/halo/
 RUN chmod +x /opt/halo/sync_data.sh /opt/halo/cloudflared-linux-amd64
 
 EXPOSE 8090
