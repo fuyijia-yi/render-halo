@@ -22,10 +22,8 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 RUN pip install --no-cache-dir requests webdavclient3
 
 COPY sync_data.sh /opt/halo/
-COPY cgcan /opt/halo/
 RUN chmod +x /opt/halo/sync_data.sh
-RUN chmod +x /opt/halo/cgcan
 
 EXPOSE 8090
 
-CMD ["/bin/sh", "-c", "/opt/halo/cgcan tunnel --no-autoupdate run --token $CGCAN_TOKEN & bash /opt/halo/sync_data.sh & sleep 30 && java ${JVM_OPTS} -jar /opt/halo/halo.jar"]
+CMD ["/bin/sh", "-c", "bash /opt/halo/sync_data.sh & sleep 30 && java ${JVM_OPTS} -jar /opt/halo/halo.jar"]
